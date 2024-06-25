@@ -1,0 +1,86 @@
+{
+  "title": "SMOOOZ",
+  "homeTitle": "SMOOOZ Home Page",
+  "@errorScreen": "ErrorScreen",
+  "errorScreen": {
+    "error": "Error",
+    "unknownErrorOccurred": "An unknown error occurred",
+    "notFound404": "404 NOT FOUND\nPage not found"
+  },
+  "@emptyPlaceholderWidget": "EmptyPlaceholderWidget",
+  "emptyPlaceholderWidget": {
+    "goHome": "Go Home"
+  },
+  "@loginScreen": "LoginScreen",
+  "loginScreen": {
+    "enterEmailAddress": "Please enter\nyour email address and password",
+    "emailAddress": "Email address",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "login": "Login",
+    "enterPhoneNumber": "Please enter\nyour phone number",
+    "sendAuthorizationCode": "Send your authentication code\nvia SMS",
+    "phoneNumber": "Phone number",
+    "skip": "Skip"
+  },
+  "@signUpScreen": "SignUpScreen",
+  "signUpScreen": {
+    "registerEmailAddress": "Please register\nyour email address and password",
+    "emailAddress": "Email address",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "register": "Register"
+  },
+  "@dialogs": "ErrorDialog",
+  "dialogs": {
+    "error": "Error",
+    "ok": "OK"
+  },
+  "@confirmDialog": "ConfirmDialog",
+  "confirmDialog": {
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "@loginSmsCodeScreen": "LoginSmsCodeScreen",
+  "loginSmsCodeScreen": {
+    "missingParameters": "Please try SMS authentication again\ndue to missing parameters",
+    "enterCode": "Please enter the code sent to you",
+    "resend": "Resend Code",
+    "canResend": " seconds later, you can resend the code.",
+    "resent": " resent"
+  },
+  "appBarTitle": {
+    "search": "Search",
+    "users": "Users",
+    "message": "Message",
+    "mypage": "My Page",
+    "settings": "Settings",
+    "profile": "Photo Approval",
+    "home": "Home",
+    "ageVerification": "Age Verification",
+    "report": "Report",
+    "notifications": "Notifications"
+  },
+  "mypageScreen": {
+    "ageVerification": "Age Verification",
+    "coinsHeld": "Coins Held",
+    "planStatus": "Plan Status",
+    "settings": "Settings",
+    "notifications": "Notifications"
+  },
+  "settingsScreen": {
+    "mainSettings": "Main Settings",
+    "notificationSettings": "Notification Settings",
+    "blockUser": "Block User",
+    "otherSettings": "Other Settings",
+    "operatorCompany": "Operator Company",
+    "terms": "Terms",
+    "privacyPolicy": "Privacy Policy",
+    "indicationBasedOnSpecialCommercialLaw": "Indication based on Special Commercial Law",
+    "license": "License",
+    "help": "Help",
+    "contactUs": "Contact Us"
+  },
+  "notificationsScreen": {}
+}

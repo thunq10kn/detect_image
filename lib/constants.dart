@@ -1,0 +1,3 @@
+const entitlementID = 'Premium';
+
+const KEY_PROPERTY_REAL_API_MODEL_DRAFT = 'KEY_PROPERTY_REAL_API_MODEL_DRAFT';

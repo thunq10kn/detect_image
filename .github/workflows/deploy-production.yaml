@@ -1,0 +1,27 @@
+
+
+name: Deploy to Prod
+'on':
+  push:
+    branches:
+      - main
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Flutter
+        run: git clone https://github.com/flutter/flutter.git -b 3.16.7 --depth 1
+      - name: Add path
+        run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
+      - name: Download Flutter packages
+        run: flutter pub get
+      - name: Set Web icons for prod
+        run: FLAVOR=prod ./deploy.sh
+      - uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          aws-region: ap-northeast-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Build and Deploy
+        run: sh ./aws/deploy_prod.sh

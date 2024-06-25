@@ -1,0 +1,1 @@
+const kDefaultSearchTake = 50;

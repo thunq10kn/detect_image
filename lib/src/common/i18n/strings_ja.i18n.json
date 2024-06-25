@@ -1,0 +1,86 @@
+{
+  "title": "SMOOOZ",
+  "homeTitle": "SMOOOZ ホームページ",
+  "@errorScreen": "ErrorScreen",
+  "errorScreen": {
+    "error": "エラー",
+    "unknownErrorOccurred": "不明なエラーが発生しました",
+    "notFound404": "404 NOT FOUND\nページが見つかりませんでした"
+  },
+  "@emptyPlaceholderWidget": "EmptyPlaceholderWidget",
+  "emptyPlaceholderWidget": {
+    "goHome": "ホームへ戻る"
+  },
+  "@loginScreen": "LoginScreen",
+  "loginScreen": {
+    "enterEmailAddress": "メールアドレスとパスワードを\n入力してください",
+    "emailAddress": "メールアドレス",
+    "password": "パスワード",
+    "forgotPassword": "パスワードを忘れた場合",
+    "login": "ログイン",
+    "enterPhoneNumber": "電話番号を\n入力してください",
+    "sendAuthorizationCode": "SMSで認証コードを\n送信します",
+    "phoneNumber": "電話番号",
+    "skip": "スキップする"
+  },
+  "@signUpScreen": "SignUpScreen",
+  "signUpScreen": {
+    "registerEmailAddress": "メールアドレスとパスワードを\n登録してください",
+    "emailAddress": "メールアドレス",
+    "password": "パスワード",
+    "forgotPassword": "パスワードを忘れた場合",
+    "register": "登録する"
+  },
+  "@dialogs": "ErrorDialog",
+  "dialogs": {
+    "error": "エラー",
+    "ok": "OK"
+  },
+  "@confirmDialog": "ConfirmDialog",
+  "confirmDialog": {
+    "confirm": "確認",
+    "yes": "はい",
+    "no": "いいえ"
+  },
+  "@loginSmsCodeScreen": "LoginSmsCodeScreen",
+  "loginSmsCodeScreen": {
+    "missingParameters": "パラメーターが不足しているため、\nもう一度 SMS 認証をお試しください",
+    "enterCode": "送信されたコードを\n入力してください",
+    "resend": "再送信する",
+    "canResend": "秒後にコードを再送信できます",
+    "resent": "に送信されました"
+  },
+  "appBarTitle": {
+    "search": "さがす",
+    "users": "ユーザー",
+    "message": "メッセージ",
+    "mypage": "マイページ",
+    "settings": "設定",
+    "home": "ホーム",
+    "profile": "写真承認",
+    "ageVerification": "年齢確認",
+    "report": "通報",
+    "notifications": "お知らせ"
+  },
+  "mypageScreen": {
+    "ageVerification": "年齢確認",
+    "coinsHeld": "保有コイン",
+    "planStatus": "会員ステータス",
+    "settings": "設定",
+    "notifications": "お知らせ"
+  },
+  "settingsScreen": {
+    "mainSettings": "各種設定",
+    "notificationSettings": "通知設定",
+    "blockUser": "ブロックユーザー",
+    "otherSettings": "その他",
+    "operatorCompany": "運営会社",
+    "terms": "利用規約",
+    "privacyPolicy": "プライバシーポリシー",
+    "indicationBasedOnSpecialCommercialLaw": "特商法に基づく表示",
+    "license": "ライセンス",
+    "help": "ヘルプ",
+    "contactUs": "お問い合せ"
+  },
+  "notificationsScreen": {}
+}
