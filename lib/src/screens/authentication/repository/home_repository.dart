@@ -21,7 +21,7 @@ class HomeRepository {
   final ApiProviderRepositoryImpl _client;
   final HomeRepositoryRef ref;
 
-  Future<VisionResponseModel> fetchDataVisionAI(Uint8List? dataImage) async {
+  Future<VisionResponseModel> fetchDataVisionAI(Uint8List? dataImage,String accessToken) async {
     if(dataImage == null) return const VisionResponseModel();
     final dataBase = base64Encode(dataImage);
     final param = {
@@ -40,6 +40,7 @@ class HomeRepository {
     };
     final response = await _client.postRequest(
       AppEndPoints.fetchDataVisionAI.path,
+      idToken: accessToken,
       data: param
     );
     print('DATATATATATATAT = ${response.data}');

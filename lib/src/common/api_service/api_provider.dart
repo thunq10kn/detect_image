@@ -101,7 +101,29 @@ class ApiProviderRepositoryImpl implements ApiProviderRepository {
   final Ref ref;
 
   Future<Dio> get _dio async {
-    const idToken = "ya29.a0AXooCgs83i2idAtK_z7_0k4WQLMeT-Deeeo-1qzvm22-kfH3gxqpgmGdLNaewLud5arYEKn-X-9wJOyoTu-RH2BjRAEVFGylQqPOZy3F8RJ8mBeJkQjFnDHTosDsWESUte8JA2y2aN3EToZSoM3GhaERsr-c6BgzIMK8hpRQuOdASTa1ygy5fqhs7RIY6962pdLmvPWKRoE-pnZxtdfdUZbcGPwD5ft40w9paDOpAsUem8n-7cUkAm4_7aYHOOTXwIUfJn0NhtYLIiZuJ2DmI8V5PF0fE_yYXX6o0QoBzr5f4ZdmMEwCB37T2T73w6LIUxXaZw_NoDt-PFx6MQB8nce8gfB-EcmkwKF_lKFyPWUix8RuPfqkB9mN9annde9-5vMe0QHjGF7mWuY5Om654k21j50aCgYKARQSARMSFQHGX2MiqqUirCcmEhrC-uuE44Mjcg0418";
+    const idToken =
+        "ya29.a0AXooCgs83i2idAtK_z7_0k4WQLMeT-Deeeo-1qzvm22-kfH3gxqpgmGdLNaewLud5arYEKn-X-9wJOyoTu-RH2BjRAEVFGylQqPOZy3F8RJ8mBeJkQjFnDHTosDsWESUte8JA2y2aN3EToZSoM3GhaERsr-c6BgzIMK8hpRQuOdASTa1ygy5fqhs7RIY6962pdLmvPWKRoE-pnZxtdfdUZbcGPwD5ft40w9paDOpAsUem8n-7cUkAm4_7aYHOOTXwIUfJn0NhtYLIiZuJ2DmI8V5PF0fE_yYXX6o0QoBzr5f4ZdmMEwCB37T2T73w6LIUxXaZw_NoDt-PFx6MQB8nce8gfB-EcmkwKF_lKFyPWUix8RuPfqkB9mN9annde9-5vMe0QHjGF7mWuY5Om654k21j50aCgYKARQSARMSFQHGX2MiqqUirCcmEhrC-uuE44Mjcg0418";
+    final dio = Dio(
+      BaseOptions(
+          baseUrl: baseUrl,
+          connectTimeout: const Duration(seconds: 45000),
+          receiveTimeout: const Duration(seconds: 30000),
+          responseType: ResponseType.json,
+          headers: {
+            'Authorization': 'Bearer $idToken',
+            "Accept": "application/json",
+            "x-goog-user-project": "detect-image-427504",
+            "Content-Type": "application/json; charset=utf-8"
+            // 'access_token': apiAccessToken,
+          }),
+    )..interceptors.addAll([
+        AppInterceptorLogging(),
+        DioCurlInterceptor(),
+      ]);
+    return dio;
+  }
+
+  Future<Dio> getDio(String idToken) async {
     final dio = Dio(
       BaseOptions(
           baseUrl: baseUrl,
@@ -171,6 +193,7 @@ class ApiProviderRepositoryImpl implements ApiProviderRepository {
   Future<Response<T>> postRequest<T>(
     String path, {
     dynamic data,
+    String idToken = "",
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
@@ -180,7 +203,7 @@ class ApiProviderRepositoryImpl implements ApiProviderRepository {
     bool isException = false,
   }) async {
     try {
-      final dio = await _dio;
+      final dio = await getDio(idToken);
       final Response<T> response = await dio.post(
         path,
         data: data,
@@ -372,31 +395,27 @@ class ApiProviderRepositoryImpl implements ApiProviderRepository {
                     as Map<String, dynamic>;
             try {
               BaseApiError error = BaseApiError.fromJson(validMap);
-              if(error.message is List){
-                if(!isShowError){
-                  isShowError= true;
+              if (error.message is List) {
+                if (!isShowError) {
+                  isShowError = true;
                   AppFunc.showAlertDialog(
                       ref.watch(navigatorKeyProvider).currentContext!,
                       message: error.message?.map((e) => e).join('\n'));
                 }
-              }else{
-                if(!isShowError) {
+              } else {
+                if (!isShowError) {
                   isShowError = true;
                   AppFunc.showAlertDialog(
-                      ref
-                          .watch(navigatorKeyProvider)
-                          .currentContext!,
+                      ref.watch(navigatorKeyProvider).currentContext!,
                       message: error.message);
                 }
               }
             } catch (e) {
               BaseResultModel error = BaseResultModel.fromJson(validMap);
-              if(!isShowError) {
+              if (!isShowError) {
                 isShowError = true;
                 AppFunc.showAlertDialog(
-                    ref
-                        .watch(navigatorKeyProvider)
-                        .currentContext!,
+                    ref.watch(navigatorKeyProvider).currentContext!,
                     message: error.message);
               }
             }

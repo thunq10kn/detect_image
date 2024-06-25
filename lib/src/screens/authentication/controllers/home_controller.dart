@@ -23,9 +23,9 @@ class HomeController extends _$HomeController {
   /// Sign in with email and password.
   /// If the user is not registered, register the user.
   /// If the user is registered, sign in.
-  Future<void> fetchDataVisionAI(Uint8List? imageData,{Function? callBack}) async {
+  Future<void> fetchDataVisionAI(Uint8List? imageData,String accessToken,{Function? callBack}) async {
     try{
-      final response = await ref.read(homeRepositoryProvider).fetchDataVisionAI(imageData);
+      final response = await ref.read(homeRepositoryProvider).fetchDataVisionAI(imageData,accessToken);
       callBack?.call(response);
     }catch(e){
       print('EROOROROROR = ${e.toString()}');

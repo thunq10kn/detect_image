@@ -20,6 +20,8 @@ class LoginScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final pickImage = useState<Uint8List?>(null);
     final dataVision = useState<String>("");
+    final textController =
+        useState<TextEditingController>(TextEditingController());
     return SelectionArea(
       child: Scaffold(
         body: Container(
@@ -31,77 +33,100 @@ class LoginScreen extends HookConsumerWidget {
               fit: BoxFit.fill,
             ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
             children: [
               Container(
-                width: 500,
-                height: 500,
+                width: MediaQuery.of(context).size.width,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                height: 50,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
-                child: InkWell(
-                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Stack(
-                      children: [
-                        if (pickImage.value == null)
-                          ImageHelper.loadFromAsset(AppAssets.imgImageCover,
-                              fit: BoxFit.cover),
-                        if (pickImage.value != null)
-                          Image.memory(
-                            pickImage.value!,
-                            width: 500,
-                            height: 700,
-                          ),
-                        const Positioned(
-                          bottom: 20,
-                          child: SizedBox(
-                            width: 500,
-                            child: Center(
-                              child: Text("Pick Image",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 20)),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                    border: Border.all(color: Colors.black, width: 1)),
+                child: TextFormField(
+                  controller: textController.value,
+                  decoration: const InputDecoration(
+                    hintText: "Input Access Token",
+                    border: InputBorder.none,
                   ),
-                  onTap: () async {
-                    await AppFunc().getImage(callBack: (image) {
-                      if (image is PlatformFile) {
-                        pickImage.value = image.bytes;
-                        ref
-                            .read(homeControllerProvider.notifier)
-                            .fetchDataVisionAI(pickImage.value,
-                                callBack: (VisionResponseModel response) {
-                          if (response.responses?.isNotEmpty == true) {
-                            dataVision.value = response
-                                .responses![0].textAnnotations![0].description
-                                .toString();
+                ),
+              ),
+              Expanded(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 500,
+                    height: 500,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: InkWell(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Stack(
+                          children: [
+                            if (pickImage.value == null)
+                              ImageHelper.loadFromAsset(AppAssets.imgImageCover,
+                                  fit: BoxFit.cover),
+                            if (pickImage.value != null)
+                              Image.memory(
+                                pickImage.value!,
+                                width: 500,
+                                height: 700,
+                              ),
+                            const Positioned(
+                              bottom: 20,
+                              child: SizedBox(
+                                width: 500,
+                                child: Center(
+                                  child: Text("Pick Image",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 20)),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      onTap: () async {
+                        await AppFunc().getImage(callBack: (image) {
+                          if (image is PlatformFile) {
+                            pickImage.value = image.bytes;
+                            ref
+                                .read(homeControllerProvider.notifier)
+                                .fetchDataVisionAI(
+                                    pickImage.value, textController.value.text,
+                                    callBack: (VisionResponseModel response) {
+                              if (response.responses?.isNotEmpty == true) {
+                                dataVision.value = response.responses![0]
+                                    .textAnnotations![0].description
+                                    .toString();
+                              }
+                            });
                           }
                         });
-                      }
-                    });
-                  },
-                ),
-              ),
-              const Gap(60),
-              Container(
-                width: 700,
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                height: MediaQuery.of(context).size.height,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
-                child: SingleChildScrollView(
-                  child: Text(
-                    dataVision.value,
+                      },
+                    ),
                   ),
-                ),
-              ),
+                  const Gap(60),
+                  Container(
+                    width: 700,
+                    margin: const EdgeInsets.symmetric(vertical: 20),
+                    height: MediaQuery.of(context).size.height,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: SingleChildScrollView(
+                      child: Text(
+                        dataVision.value,
+                      ),
+                    ),
+                  ),
+                ],
+              ))
             ],
           ),
         ),
