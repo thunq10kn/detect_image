@@ -28,6 +28,17 @@ String get baseUrl {
   }
 }
 
+String get baseUrlOCR {
+  switch (Env.flavor) {
+    case Flavor.dev:
+      return 'https://text-reconize.domainfortesting.click/';
+    case Flavor.stg:
+      return 'https://text-reconize.domainfortesting.click/';
+    case Flavor.prod:
+      return 'https://text-reconize.domainfortesting.click/';
+  }
+}
+
 abstract class ApiProviderRepository {
   Future<Response<T>> getRequest<T>(
     String path, {
@@ -141,6 +152,25 @@ class ApiProviderRepositoryImpl implements ApiProviderRepository {
         AppInterceptorLogging(),
         DioCurlInterceptor(),
       ]);
+    return dio;
+  }
+
+  Future<Dio> getDioOCR() async {
+    final dio = Dio(
+      BaseOptions(
+          baseUrl: baseUrlOCR,
+          connectTimeout: const Duration(seconds: 45000),
+          receiveTimeout: const Duration(seconds: 30000),
+          responseType: ResponseType.json,
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "multipart/form-data",
+            // 'access_token': apiAccessToken,
+          }),
+    )..interceptors.addAll([
+      AppInterceptorLogging(),
+      DioCurlInterceptor(),
+    ]);
     return dio;
   }
 
@@ -327,7 +357,7 @@ class ApiProviderRepositoryImpl implements ApiProviderRepository {
       ProgressCallback? onReceiveProgress,
       bool ignoreInvalidToken = false}) async {
     try {
-      final dio = await _dio;
+      final dio = await getDioOCR();
       final Response<T> response = await dio.post(
         path,
         data: data,

@@ -50,6 +50,7 @@ dependencies:
   # * firebase
   firebase_core: ^2.4.1
   firebase_auth: ^4.2.5
+  radio_group_v2:
   firebase_storage: ^11.0.10
   reorderable_grid_view: ^2.2.8
   firebase_crashlytics: ^3.0.10

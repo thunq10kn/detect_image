@@ -2,10 +2,14 @@
 
 enum AppEndPoints {
   fetchDataVisionAI,
+  tesseract,
+  paddle,
 }
 
 const _path = {
   AppEndPoints.fetchDataVisionAI: 'images:annotate',
+  AppEndPoints.tesseract: 'tesseract',
+  AppEndPoints.paddle: 'paddle',
 };
 
 extension EndpointExtension on AppEndPoints {
